@@ -13,10 +13,16 @@ const userSchema = new mongoose.Schema({
     name: String,
     task: String
 })
+const releaseSchema = new mongoose.Schema({
+    task: String,
+    market: String,
+    status: String,
+})
+
+
 
 const User = mongoose.model("user", userSchema)
-
-
+const Release = mongoose.model("release", releaseSchema)
 //Initialize app with the bot token
 const app = new App({
     token: process.env.SLACK_BOT_TOKEN,
@@ -112,4 +118,4 @@ app.view('view_1', async ({ ack, body, view, client, logger }) => {
     }
 })
 app.start(process.env.PORT || 3000);
-console.log('Bolt running')
+console.log(' Bolt running')

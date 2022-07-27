@@ -28,7 +28,6 @@ const app = new App({
 
 app.message("status", async ({ say }) => {
     let status = await User.find()
-    console.log(status[0].name)
     let messageToSend = ""
     if (status.length > 0) { status.forEach(element => messageToSend += `<@${element.name}> is doing ${element.task}\n`) }
     else {
@@ -38,8 +37,8 @@ app.message("status", async ({ say }) => {
 
 })
 app.message("clear", async ({ say }) => {
-    status = []
     await say('All the status have been cleared')
+
 })
 app.command('/update', async ({ ack, body, client, logger }) => {
     // Acknowledge the command request

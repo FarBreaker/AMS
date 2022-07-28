@@ -106,8 +106,16 @@ app.view('view_1', async ({ ack, body, view, client, logger }) => {
     let msg = `Hi <@${user}>, I understood your assignment is ${val}`
     console.log("this is the view", val)
     try {
-        const data = new User({ name: user, task: val })
-        await data.save()
+        if (User.findOne({ name: user })) {
+            console.log(User.findOne({ name: user }))
+            console.log('In If')
+            const data = await User.findOneAndUpdate({ name: user }, { task: val })
+            await data.save()
+        } else {
+            console.log('In here')
+            const data = new User({ name: user, task: val })
+            await data.save()
+        }
         await client.chat.postMessage({
             channel: user,
             text: msg
